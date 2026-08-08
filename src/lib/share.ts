@@ -3,8 +3,8 @@ import type { BuilderData } from "./types";
 import { labelForRarity } from "./generate";
 
 export async function processCardExport(node: HTMLElement, filename: string) {
-  // Single-pass render: generate PNG Blob once for fast performance & fresh gesture token
-  const blob = await toBlob(node, { pixelRatio: 2, cacheBust: true });
+  // Ultra-fast single-pass render: reuse browser cached fonts & assets (cacheBust: false)
+  const blob = await toBlob(node, { pixelRatio: 2, cacheBust: false });
   if (!blob) return { copied: false };
 
   let copied = false;
@@ -33,7 +33,7 @@ export async function processCardExport(node: HTMLElement, filename: string) {
 }
 
 export async function downloadCardPng(node: HTMLElement, filename: string) {
-  const blob = await toBlob(node, { pixelRatio: 2, cacheBust: true });
+  const blob = await toBlob(node, { pixelRatio: 2, cacheBust: false });
   if (!blob) return;
   const objectUrl = URL.createObjectURL(blob);
   const link = document.createElement("a");
