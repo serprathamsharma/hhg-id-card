@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0b2219;
+  --foreground: #ffffff;
+
+  /* landing — exact reference palette */
+  --goa-green-deep: #0b2219;
+  --goa-green: #123a28;
+  --goa-gold: #fde000;
+  --goa-gold-bright: #fff033;
+  --goa-pink: #ff1a8c;
+  --goa-pink-glow: rgba(255, 26, 140, 0.7);
+  --goa-cream: #e6ede8;
+  --goa-muted: #8ba89a;
+  --goa-card-bg: rgba(13, 38, 28, 0.72);
+  --goa-card-border: rgba(245, 208, 32, 0.5);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-goa-green-deep: var(--goa-green-deep);
+  --color-goa-green: var(--goa-green);
+  --color-goa-gold: var(--goa-gold);
+  --color-goa-gold-bright: var(--goa-gold-bright);
+  --color-goa-pink: var(--goa-pink);
+  --color-goa-pink-glow: var(--goa-pink-glow);
+  --color-goa-cream: var(--goa-cream);
+  --color-goa-muted: var(--goa-muted);
+  --color-goa-card-bg: var(--goa-card-bg);
+  --color-goa-card-border: var(--goa-card-border);
+
+  --font-mono: var(--font-mono);
+  --font-sans: var(--font-sans);
+  --font-devanagari: var(--font-devanagari);
+  --font-jetbrains: var(--font-jetbrains);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes float-goa {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) rotate(-3deg) translateY(0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(-3deg) translateY(-9px);
+  }
+}
