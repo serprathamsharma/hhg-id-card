@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hacker House Goa 2026 — Builder Pass Generator 🌴
 
-## Getting Started
+> **HH GOA | ID CARD** — Generate, personalize, and share your official Builder Pass for **Hacker House Goa 2026**.
 
-First, run the development server:
+---
+
+## ✨ Features
+
+- 📸 **Live Inline Photo Repositioning**: Drag and zoom your photo directly inside the card frame with instant CSS-transformed preview.
+- 🎨 **Dynamic Rarity Themes**: Unique collectible rarities with custom color palettes, background patterns, and star ratings.
+- ✏️ **Card Personalization**: Tap and edit your Builder name directly on the card in real-time.
+- 📱 **Scannable Builder ID & QR**: Dynamic QR code encoding your unique Builder ID for quick event check-ins.
+- 💾 **High-Res PNG Export**: Download crisp 2x resolution PNG images ready for printing or social media.
+- 🐦 **Instant X (Twitter) Sharing**: Seamless prefilled tweet sharing with `#FrameInGoa` and `#HHGoa2026` hashtags, auto-downloading PNG, and automatic clipboard image copying.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 15](https://nextjs.org/) (App Router)
+- **Library**: React 19, TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Exporting**: `html-to-image`
+
+---
+
+## 🚀 Getting Started
+
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000) (or `http://localhost:3001`) in your browser to start generating your Builder Pass!
