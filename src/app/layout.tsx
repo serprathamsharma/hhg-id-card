@@ -50,6 +50,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${spaceMono.variable} ${spaceGrotesk.variable} ${baloo.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="icon" href="/icon.svg?v=2" type="image/svg+xml" />
+        <link rel="shortcut icon" href="/icon.svg?v=2" />
+        <link rel="apple-touch-icon" href="/icon.svg?v=2" />
+      </head>
       <body className="h-full overflow-x-hidden bg-[#0b2a1f] font-mono text-white">{children}</body>
     </html>
   );
