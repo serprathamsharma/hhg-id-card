@@ -27,8 +27,13 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hacker House Goa 2026 — Builder Passport",
+  title: "HH GOA | ID CARD",
   description: "Discover your Hacker House identity. Generate your Builder Passport for Hacker House Goa 2026.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export const viewport: Viewport = {

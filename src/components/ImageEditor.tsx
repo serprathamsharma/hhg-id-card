@@ -16,13 +16,14 @@ function clamp(v: number, min: number, max: number) {
 interface ImageEditorProps {
   img: HTMLImageElement;
   initialFocus: Focus;
-  onConfirm: (dataUrl: string) => void;
+  initialZoom?: number;
+  onConfirm: (dataUrl: string, focus: Focus, zoom: number) => void;
   onCancel: () => void;
 }
 
-export default function ImageEditor({ img, initialFocus, onConfirm, onCancel }: ImageEditorProps) {
+export default function ImageEditor({ img, initialFocus, initialZoom = 1, onConfirm, onCancel }: ImageEditorProps) {
   const [focus, setFocus] = useState<Focus>(initialFocus);
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoom] = useState(initialZoom);
   const dragRef = useRef<{ x: number; y: number } | null>(null);
 
   const baseScale = Math.max(FRAME_W / img.naturalWidth, FRAME_H / img.naturalHeight);
@@ -58,7 +59,7 @@ export default function ImageEditor({ img, initialFocus, onConfirm, onCancel }: 
       targetWidth: PHOTO_TARGET.width,
       targetHeight: PHOTO_TARGET.height,
     });
-    onConfirm(dataUrl);
+    onConfirm(dataUrl, focus, zoom);
   }
 
   return (

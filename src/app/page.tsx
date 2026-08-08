@@ -7,7 +7,6 @@ import Background from "@/components/landing/Background";
 import Logo from "@/components/landing/Logo";
 import Hero from "@/components/landing/Hero";
 import UploadCard from "@/components/landing/UploadCard";
-import ImageEditor from "@/components/ImageEditor";
 import CardStage from "@/components/card/CardStage";
 import ResultActions from "@/components/card/ResultActions";
 import {
@@ -29,24 +28,42 @@ export default function Home() {
   const [data, setData] = useState<BuilderData | null>(null);
   const [sourceImg, setSourceImg] = useState<HTMLImageElement | null>(null);
   const [sourceFocus, setSourceFocus] = useState<Focus>(DEFAULT_FOCUS);
-  const [isEditingPhoto, setEditingPhoto] = useState(false);
+  const [sourceZoom, setSourceZoom] = useState(1);
   const [isCapturing, setIsCapturing] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  const processImage = useCallback(async (img: HTMLImageElement) => {
-    const focus = await detectFocus(img);
-    const photo = renderCroppedPhoto(img, {
-      focus,
-      zoom: 1,
-      targetWidth: PHOTO_TARGET.width,
-      targetHeight: PHOTO_TARGET.height,
-    });
+  /** Bake the current focus+zoom into data.photo */
+  const bakePhoto = useCallback(
+    (img: HTMLImageElement, focus: Focus, zoom: number) => {
+      const dataUrl = renderCroppedPhoto(img, {
+        focus,
+        zoom,
+        targetWidth: PHOTO_TARGET.width,
+        targetHeight: PHOTO_TARGET.height,
+      });
+      setData((prev) => (prev ? { ...prev, photo: dataUrl } : prev));
+    },
+    []
+  );
 
-    setSourceImg(img);
-    setSourceFocus(focus);
-    setData(createBuilderData(photo));
-    setStage("result");
-  }, []);
+  const processImage = useCallback(
+    async (img: HTMLImageElement) => {
+      const focus = await detectFocus(img);
+      const photo = renderCroppedPhoto(img, {
+        focus,
+        zoom: 1,
+        targetWidth: PHOTO_TARGET.width,
+        targetHeight: PHOTO_TARGET.height,
+      });
+
+      setSourceImg(img);
+      setSourceFocus(focus);
+      setSourceZoom(1);
+      setData(createBuilderData(photo));
+      setStage("result");
+    },
+    []
+  );
 
   const handleFile = useCallback(
     async (file: File) => {
@@ -68,12 +85,13 @@ export default function Home() {
     setStage("landing");
     setData(null);
     setSourceImg(null);
+    setSourceZoom(1);
   }
 
-  function handlePhotoConfirmed(dataUrl: string) {
-    setData((prev) => (prev ? { ...prev, photo: dataUrl } : prev));
-    setEditingPhoto(false);
-  }
+  /** Called on every pointer-up after dragging — re-bakes the cropped photo. */
+  const handleDragEnd = useCallback(() => {
+    if (sourceImg) bakePhoto(sourceImg, sourceFocus, sourceZoom);
+  }, [sourceImg, sourceFocus, sourceZoom, bakePhoto]);
 
   return (
     <div className="relative flex min-h-dvh w-full flex-col overflow-hidden">
@@ -120,32 +138,20 @@ export default function Home() {
                 editable={!isCapturing}
                 className="w-full"
                 onNameChange={(name) => setData((p) => (p ? { ...p, name } : p))}
+                sourceImg={sourceImg}
+                focus={sourceFocus}
+                zoom={sourceZoom}
+                onFocusChange={setSourceFocus}
+                onZoomChange={setSourceZoom}
+                isCapturing={isCapturing}
+                onDragEnd={handleDragEnd}
               />
             </div>
-
-            {sourceImg && (
-              <button
-                type="button"
-                onClick={() => setEditingPhoto(true)}
-                className="flex items-center gap-1.5 font-mono text-xs text-white/80 underline underline-offset-4 hover:text-goa-gold"
-              >
-                <Pencil className="h-3 w-3" /> Reposition photo
-              </button>
-            )}
 
             <ResultActions data={data} cardRef={cardRef} onReset={handleReset} onCapturingChange={setIsCapturing} />
           </motion.main>
         )}
       </AnimatePresence>
-
-      {isEditingPhoto && sourceImg && (
-        <ImageEditor
-          img={sourceImg}
-          initialFocus={sourceFocus}
-          onConfirm={handlePhotoConfirmed}
-          onCancel={() => setEditingPhoto(false)}
-        />
-      )}
     </div>
   );
 }
