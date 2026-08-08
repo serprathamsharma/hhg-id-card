@@ -11,7 +11,7 @@ export async function downloadCardPng(node: HTMLElement, filename: string) {
 }
 
 export function buildShareText(data: BuilderData) {
-  return `I just got ${labelForRarity(data.rarity)} – ${data.title} 🔥\n\nWhat's your Builder identity?\n\n#FrameInGoa`;
+  return `I just got ${labelForRarity(data.rarity)} – ${data.title} 🔥\n\nWhat's your Builder identity?\n\n#FrameInGoa #HHGoa2026`;
 }
 
 export function shareOnX(data: BuilderData) {
