@@ -14,8 +14,12 @@ export function buildShareText(data: BuilderData) {
   return `I just got ${labelForRarity(data.rarity)} – ${data.title} 🔥\n\nWhat's your Builder identity?\n\n#FrameInGoa #HHGoa2026`;
 }
 
-export function shareOnX(data: BuilderData) {
+export function getShareUrl(data: BuilderData) {
   const text = buildShareText(data);
-  const intentUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}`;
-  window.open(intentUrl, "_blank", "noopener,noreferrer");
+  return `https://x.com/intent/post?text=${encodeURIComponent(text)}`;
+}
+
+export function shareOnX(data: BuilderData) {
+  const url = getShareUrl(data);
+  window.open(url, "_blank", "noopener,noreferrer");
 }

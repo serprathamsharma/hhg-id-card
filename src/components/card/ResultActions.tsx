@@ -5,7 +5,7 @@ import { Download, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import XLogo from "@/components/icons/XLogo";
 import type { BuilderData } from "@/lib/types";
-import { downloadCardPng, shareOnX } from "@/lib/share";
+import { downloadCardPng, getShareUrl } from "@/lib/share";
 
 interface ResultActionsProps {
   data: BuilderData;
@@ -36,15 +36,6 @@ export default function ResultActions({ data, cardRef, onReset, onCapturingChang
     }
   }
 
-  function handleShare() {
-    // Open X synchronously on click gesture so browser popup blockers never block it
-    shareOnX(data);
-    // Simultaneously trigger image download
-    if (!downloading) {
-      handleDownload();
-    }
-  }
-
   return (
     <div className="flex w-full max-w-[380px] flex-col gap-3">
       <Button type="button" size="lg" className="w-full" onClick={handleDownload} disabled={downloading}>
@@ -62,15 +53,15 @@ export default function ResultActions({ data, cardRef, onReset, onCapturingChang
         >
           <RotateCcw className="h-3.5 w-3.5 shrink-0" /> Generate Another
         </Button>
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          className="min-w-0 flex-1 px-2 text-[11px] sm:text-xs"
-          onClick={handleShare}
+
+        <a
+          href={getShareUrl(data)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg border border-white/20 bg-white/5 px-2 py-2 text-[11px] font-bold text-white transition-colors hover:bg-white/10 sm:text-xs"
         >
           <XLogo className="h-3 w-3 shrink-0" /> Share on X
-        </Button>
+        </a>
       </div>
     </div>
   );
