@@ -16,7 +16,7 @@ export function buildShareText(data: BuilderData) {
 
 export function getShareUrl(data: BuilderData) {
   const text = buildShareText(data);
-  return `https://x.com/intent/post?text=${encodeURIComponent(text)}`;
+  return `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
 }
 
 export function shareOnX(data: BuilderData) {

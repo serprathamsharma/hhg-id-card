@@ -36,6 +36,8 @@ export default function ResultActions({ data, cardRef, onReset, onCapturingChang
     }
   }
 
+  const shareUrl = getShareUrl(data);
+
   return (
     <div className="flex w-full max-w-[380px] flex-col gap-3">
       <Button type="button" size="lg" className="w-full" onClick={handleDownload} disabled={downloading}>
@@ -55,7 +57,7 @@ export default function ResultActions({ data, cardRef, onReset, onCapturingChang
         </Button>
 
         <a
-          href={getShareUrl(data)}
+          href={shareUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg border border-white/20 bg-white/5 px-2 py-2 text-[11px] font-bold text-white transition-colors hover:bg-white/10 sm:text-xs"
