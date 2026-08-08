@@ -5,7 +5,7 @@ import { Download, RotateCcw, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import XLogo from "@/components/icons/XLogo";
 import type { BuilderData } from "@/lib/types";
-import { downloadCardPng, getShareUrl, copyCardToClipboard } from "@/lib/share";
+import { downloadCardPng, getShareUrl, processCardExport } from "@/lib/share";
 
 interface ResultActionsProps {
   data: BuilderData;
@@ -44,10 +44,9 @@ export default function ResultActions({ data, cardRef, onReset, onCapturingChang
       await nextFrame();
       const node = cardRef.current;
       if (node) {
-        const copied = await copyCardToClipboard(node);
-        await downloadCardPng(node, `hacker-house-goa-${data.builderId}.png`);
+        const { copied } = await processCardExport(node, `hacker-house-goa-${data.builderId}.png`);
         if (copied) {
-          setToastMessage("Card copied! Press Ctrl+V (Cmd+V) to paste into Twitter.");
+          setToastMessage("Card copied to clipboard! Press Ctrl+V (Cmd+V) to paste into Twitter.");
         } else {
           setToastMessage("Card downloaded! Attach it to your tweet.");
         }
